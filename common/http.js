@@ -11,3 +11,5 @@ JLIB.common.httpReqeust = function(url, _callback){
         }
     };
 }
+
+window.dispatchEvent(JLIB.common.scriptLoaded)
