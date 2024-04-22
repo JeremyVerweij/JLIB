@@ -35,4 +35,11 @@ JLIB.common.convertToBox = function(notBox, array){
     return box;
 }
 
+JLIB.common.convertToCoord = function(object){
+    if(object.x2 != undefined && object.y2 != undefined)
+        return [object.x1, object.y1, object.x2, object.y2];
+
+    return [object.x, object.y];
+}
+
 window.dispatchEvent(JLIB.common.scriptLoaded)

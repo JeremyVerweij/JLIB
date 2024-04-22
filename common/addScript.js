@@ -18,9 +18,9 @@ window.addEventListener("JLIB_script_loaded", () => {
     var JLIB_script_loaded_tmp = JLIB_LOADER.JLIB_SRC_LIST[JLIB_LOADER.JLIB_SRC_LOAD_INDEX];
     JLIB_LOADER.JLIB_LOADED.push(JLIB_script_loaded_tmp.src);
     
-    if(JLIB_LOADER.JLIB_SRC_LOAD_INDEX == JLIB_LOADER.JLIB_SRC_LIST.length) return;
-    
     JLIB_LOADER.JLIB_SRC_LOAD_INDEX++;
+    
+    if(JLIB_LOADER.JLIB_SRC_LOAD_INDEX == JLIB_LOADER.JLIB_SRC_LIST.length) return;
 
     JLIB_script_loaded_tmp = JLIB_LOADER.JLIB_SRC_LIST[JLIB_LOADER.JLIB_SRC_LOAD_INDEX];
 

@@ -9,14 +9,23 @@ JLIB_LOADER.JLIB_SRC_LOAD_INDEX = 0;
 JLIB_LOADER.JLIB_SRC_LIST = [
     {src: "common/addScript", requirements: []},
     {src: "common/addCss", requirements: []},
+    {src: "common/http", requirements: []},
+    {src: "common/extensions", requirements: []},
     {src: "common/boundsCheck", requirements: []},
-    {src: "common/events", requirements: ["common/boundsCheck"]},
+    {src: "api/events", requirements: ["common/boundsCheck"]},
+];
+
+JLIB_LOADER.JLIB_SRC_LIST_NODE = [
+    {src: "node/fsExtended", requirements: []},
 ];
 
 JLIB.common = {};
 JLIB.api = {};
-JLIB.render = {};
-JLIB.ui = {};
 
 JLIB.sourceFolder = document.getElementById("JLIB").dataset.lib;
+JLIB.node = document.getElementById("JLIB").dataset.node === "true";
+JLIB_EXTENSIONS = JSON.parse(document.getElementById("JLIB").dataset.extensions);
+
+if(JLIB.node) JLIB_LOADER.JLIB_SRC_LIST = JLIB_LOADER.JLIB_SRC_LIST.concat(JLIB_LOADER.JLIB_SRC_LIST_NODE)
+
 document.head.appendChild((() => {var JLIB_SOURCE_LOADER_tmp = document.createElement('script'); JLIB_SOURCE_LOADER_tmp.src = JLIB.sourceFolder + "common/addScript.js"; return JLIB_SOURCE_LOADER_tmp;})());
