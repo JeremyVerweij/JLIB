@@ -23,9 +23,6 @@ JLIB.common = {};
 JLIB.api = {};
 
 JLIB.sourceFolder = document.getElementById("JLIB").dataset.lib;
-JLIB.node = document.getElementById("JLIB").dataset.node === "true";
 JLIB_EXTENSIONS = JSON.parse(document.getElementById("JLIB").dataset.extensions);
-
-if(JLIB.node) JLIB_LOADER.JLIB_SRC_LIST = JLIB_LOADER.JLIB_SRC_LIST.concat(JLIB_LOADER.JLIB_SRC_LIST_NODE)
 
 document.head.appendChild((() => {var JLIB_SOURCE_LOADER_tmp = document.createElement('script'); JLIB_SOURCE_LOADER_tmp.src = JLIB.sourceFolder + "common/addScript.js"; return JLIB_SOURCE_LOADER_tmp;})());
