@@ -17,29 +17,4 @@ JLIB.common.checkBoundForBox = function(box1, box2){
 	return true;
 }
 
-JLIB.common.convertToBox = function(notBox, array){
-    var box = {};
-
-    if(array){
-        box.x1 = notBox[0];
-        box.y1 = notBox[1];
-        box.x2 = notBox[2];
-        box.y2 = notBox[3];
-    }else{
-        box.x1 = notBox.x;
-        box.y1 = notBox.y;
-        box.x2 = notBox.x + notBox.width;
-        box.y2 = notBox.y + notBox.height;
-    }
-
-    return box;
-}
-
-JLIB.common.convertToCoord = function(object){
-    if(object.x2 != undefined && object.y2 != undefined)
-        return [object.x1, object.y1, object.x2, object.y2];
-
-    return [object.x, object.y];
-}
-
 window.dispatchEvent(JLIB.common.scriptLoaded)

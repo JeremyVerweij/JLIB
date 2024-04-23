@@ -1,9 +1,11 @@
 [
     "api/events.js",
+    "api/log.js",
     "common/addCss.js",
     "common/addScript.js",
     "common/boundsCheck.js",
     "common/extensions.js",
     "common/http.js",
+    "common/commonMath.js",
     "JLIB.js"
 ]

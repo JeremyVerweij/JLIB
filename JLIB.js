@@ -10,10 +10,12 @@ JLIB_LOADER.JLIB_SRC_LOAD_INDEX = 0;
 JLIB_LOADER.JLIB_SRC_LIST = [
     {src: "common/addScript", requirements: []},
     {src: "common/addCss", requirements: []},
-    {src: "common/http", requirements: []},
     {src: "common/extensions", requirements: []},
-    {src: "common/boundsCheck", requirements: []},
+    {src: "common/http", requirements: []},
+    {src: "common/commonMath", requirements: []},
+    {src: "common/boundsCheck", requirements: ["common/commonMath"]},
     {src: "api/events", requirements: ["common/boundsCheck"]},
+    {src: "api/log", requirements: []},
 ];
 
 JLIB_LOADER.JLIB_SRC_LIST_NODE = [
