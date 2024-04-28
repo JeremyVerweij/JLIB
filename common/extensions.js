@@ -1,29 +1,46 @@
 (() => {
-    var JLIB_E_TEMP = [];
-    
-    for (let index = 0; index < JLIB_EXTENSIONS.length; index++) {
-        const element = JLIB_EXTENSIONS[index];
-        JLIB_E_TEMP.push(element.name);
+    var JLIB_EXTENSIONS_TEMP = document.getElementsByTagName("jlib-extension");
+
+    for (let JLIB_I = 0; JLIB_I < JLIB_EXTENSIONS_TEMP.length; JLIB_I++) {
+        const JLIB_ELEMENT = JLIB_EXTENSIONS_TEMP[JLIB_I];
+        
+        var JLIB_E_TMP = JLIB_ELEMENT.children;
+
+        var JLIB_TEMP_SRC, JLIB_TEMP_NAME;
+        var JLIB_TEMP_REQUIREMENTS = [];
+
+        for (let JLIB_I2 = 0; JLIB_I2 < JLIB_E_TMP.length; JLIB_I2++) {
+            const JLIB_ELEMENT2 = JLIB_E_TMP[JLIB_I2];
+            const JLIB_TEMP_TYPE = JLIB_ELEMENT2.nodeName;
+
+            switch (JLIB_TEMP_TYPE) {
+                case "JLIB-SRC":
+                    JLIB_TEMP_SRC = JLIB_ELEMENT2.innerHTML;
+
+                    break;
+                case "JLIB-EXTENSION-NAME":
+                    JLIB_TEMP_NAME = JLIB_ELEMENT2.innerHTML;
+                        
+                    break;
+                case "JLIB-REQUIREMENT":
+                    JLIB_TEMP_REQUIREMENTS.push(JLIB_ELEMENT2.innerHTML);
+                    break;
+            }
+
+        }
+
+        JLIB_EXTENSIONS[JLIB_TEMP_NAME] = {name: JLIB_TEMP_NAME, src: JLIB_TEMP_SRC, requirements: JLIB_TEMP_REQUIREMENTS, config_element: JLIB_ELEMENT};
     }
 
-    for (let index = 0; index < JLIB_E_TEMP.length; index++) {
-        const element = JLIB_E_TEMP[index];
-        const element2 = JLIB_EXTENSIONS[index];
+    for (const JLIB_TEMP_KEY in JLIB_EXTENSIONS) {
+        const JLIB_TEMP_ELEMENT = JLIB_EXTENSIONS[JLIB_TEMP_KEY];
         
-        if(JLIB.common.includesAll(JLIB_E_TEMP, element2.requirements)){
-            if(JLIB_VERSION == element2.version){
-                for (let idx = 0; idx < element2.overrides.length; idx++) {
-                    const ez = element2.overrides[idx];
-                    
-                    var idxZ = JLIB_LOADER.JLIB_SRC_LIST.findIndex((e) => e.src == ez);
-                    JLIB_LOADER.JLIB_SRC_LIST.splice(idxZ, 1);
-                }
-    
-                JLIB_LOADER.JLIB_SRC_LIST = JLIB_LOADER.JLIB_SRC_LIST.concat(element2.files);
-            }else
-                console.error(`JLIB-extension[${element}]: JLIB is not on the same version as the extension`)
-        }else
-            console.error(`JLIB-extension[${element}]: couldn't find all the required extensions!`)
+        if(!JLIB.common.objectIncludesAll(JLIB_EXTENSIONS, JLIB_TEMP_ELEMENT.requirements)){
+            LOG.error(`Couldn't find all the dependencies for ${JLIB_TEMP_ELEMENT.name}`);
+            return;
+        }
+
+        JLIB.common.addScript(JLIB_TEMP_ELEMENT.src + "/_init");
     }
 })()
 

@@ -1,4 +1,5 @@
 JLIB.common.includesAll = (arr, values) => values.every(v => arr.includes(v));
+JLIB.common.objectIncludesAll = (object, values) => values.every(v => object[v] != undefined);
 
 JLIB.common.addScript = function(src){
     var JLIB_addScript_html_temp = document.createElement('script');
@@ -11,7 +12,7 @@ JLIB.common.scriptLoaded = new Event("JLIB_script_loaded");
 JLIB.common.scriptLoadedEvent = function() {
     for (let JLIB_script_loaded_index = 0; JLIB_script_loaded_index < JLIB_LOADER.JLIB_LOADED_WAIT_LIST.length; JLIB_script_loaded_index++) {
         const JLIB_script_loaded_element = JLIB_LOADER.JLIB_LOADED_WAIT_LIST[JLIB_script_loaded_index];
-        if(JLIB.common.includesAll(JLIB_LOADER.JLIB_LOADED, JLIB_script_loaded_element.requirements)){
+        if(JLIB.common.includesAll(JLIB_LOADER.JLIB_LOADED, JLIB_script_loaded_element.requirements) && JLIB_script_loaded_element.enabled()){
             JLIB.common.addScript(JLIB_script_loaded_element.src);
             JLIB_LOADER.JLIB_LOADED_WAIT_LIST.splice(JLIB_script_loaded_index, 1);
         }
@@ -41,13 +42,32 @@ JLIB.common.scriptLoadedEvent = function() {
     }
 
     JLIB_script_loaded_tmp = JLIB_LOADER.JLIB_SRC_LIST[JLIB_LOADER.JLIB_SRC_LOAD_INDEX];
-
-    if(JLIB.common.includesAll(JLIB_LOADER.JLIB_LOADED, JLIB_script_loaded_tmp.requirements))
-        JLIB.common.addScript(JLIB_script_loaded_tmp.src);
-    else{
+    
+    if(!JLIB.common.includesAll(JLIB_LOADER.JLIB_LOADED, JLIB_script_loaded_tmp.requirements)){
         JLIB_LOADER.JLIB_LOADED_WAIT_LIST.push(JLIB_script_loaded_tmp);
         JLIB_LOADER.JLIB_LOADED_WAIT.push(JLIB_script_loaded_tmp.src);
         JLIB.common.scriptLoadedEvent();
+        return;
+    }
+
+    if(!JLIB_script_loaded_tmp.enabled()){
+        JLIB_LOADER.JLIB_LOADED_WAIT_LIST.push(JLIB_script_loaded_tmp);
+        JLIB_LOADER.JLIB_LOADED_WAIT.push(JLIB_script_loaded_tmp.src);
+        JLIB.common.scriptLoadedEvent();
+        return;
+    }
+
+    JLIB.common.addScript(JLIB_script_loaded_tmp.src);
+}
+
+JLIB_LOADER.LOAD_EXTENSION_SRC_LIST = function(srcList, extension){
+    var JLIB_SRC_TEMP = JLIB_EXTENSIONS[extension].src;
+
+    for (let JLIB_INDEX_TEMP = 0; JLIB_INDEX_TEMP < srcList.length; JLIB_INDEX_TEMP++) {
+        var JLIB_ELEMENT_TEMP = srcList[JLIB_INDEX_TEMP].src;
+        JLIB_ELEMENT_TEMP = JLIB_SRC_TEMP + "/" + JLIB_ELEMENT_TEMP;
+        srcList[JLIB_INDEX_TEMP].src = JLIB_ELEMENT_TEMP;
+        JLIB_LOADER.JLIB_SRC_LIST.push(srcList[JLIB_INDEX_TEMP]);
     }
 }
 
