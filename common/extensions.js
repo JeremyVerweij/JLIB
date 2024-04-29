@@ -44,4 +44,22 @@
     }
 })()
 
+JLIB_LOADER.LOAD_EXTENSION_SRC_LIST = function(srcList, extension){
+    var JLIB_SRC_TEMP = JLIB_EXTENSIONS[extension].src;
+
+    for (let JLIB_INDEX_TEMP = 0; JLIB_INDEX_TEMP < srcList.length; JLIB_INDEX_TEMP++) {
+        var JLIB_ELEMENT_TEMP = srcList[JLIB_INDEX_TEMP].src;
+        JLIB_ELEMENT_TEMP = JLIB_SRC_TEMP + "/" + JLIB_ELEMENT_TEMP;
+        srcList[JLIB_INDEX_TEMP].src = JLIB_ELEMENT_TEMP;
+
+        for (let JLIB_INDEX_2 = 0; JLIB_INDEX_2 < srcList[JLIB_INDEX_TEMP].requirements.length; JLIB_INDEX_2++) {
+            var JLIB_ELEMENT_TEMP_2 = srcList[JLIB_INDEX_TEMP].requirements[JLIB_INDEX_2];
+            JLIB_ELEMENT_TEMP_2 = JLIB_SRC_TEMP + "/" + JLIB_ELEMENT_TEMP_2;
+            srcList[JLIB_INDEX_TEMP].requirements[JLIB_INDEX_2] = JLIB_ELEMENT_TEMP_2;
+        }
+
+        JLIB_LOADER.JLIB_SRC_LIST.push(srcList[JLIB_INDEX_TEMP]);
+    }
+}
+
 window.dispatchEvent(JLIB.common.scriptLoaded)

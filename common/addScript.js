@@ -60,17 +60,6 @@ JLIB.common.scriptLoadedEvent = function() {
     JLIB.common.addScript(JLIB_script_loaded_tmp.src);
 }
 
-JLIB_LOADER.LOAD_EXTENSION_SRC_LIST = function(srcList, extension){
-    var JLIB_SRC_TEMP = JLIB_EXTENSIONS[extension].src;
-
-    for (let JLIB_INDEX_TEMP = 0; JLIB_INDEX_TEMP < srcList.length; JLIB_INDEX_TEMP++) {
-        var JLIB_ELEMENT_TEMP = srcList[JLIB_INDEX_TEMP].src;
-        JLIB_ELEMENT_TEMP = JLIB_SRC_TEMP + "/" + JLIB_ELEMENT_TEMP;
-        srcList[JLIB_INDEX_TEMP].src = JLIB_ELEMENT_TEMP;
-        JLIB_LOADER.JLIB_SRC_LIST.push(srcList[JLIB_INDEX_TEMP]);
-    }
-}
-
 window.addEventListener("JLIB_script_loaded", JLIB.common.scriptLoadedEvent)
 
 window.dispatchEvent(JLIB.common.scriptLoaded)
