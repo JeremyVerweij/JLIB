@@ -4,7 +4,7 @@ JLIB.common.objectIncludesAll = (object, values) => values.every(v => object[v] 
 JLIB.common.addScript = function(src){
     var JLIB_addScript_html_temp = document.createElement('script');
     JLIB_addScript_html_temp.src = JLIB.sourceFolder + src + ".js";
-    document.head.appendChild(JLIB_addScript_html_temp);
+    JLIB.scripts_element.appendChild(JLIB_addScript_html_temp);
 }
 
 JLIB.common.scriptLoaded = new Event("JLIB_script_loaded");

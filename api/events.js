@@ -5,7 +5,7 @@ JLIB.api.clickEvents = [];
 JLIB.api.resizeEvents = [];
 JLIB.api.wheelEvents = [];
 
-JLIB.api.addClickEvent = (bounds, __callback) => JLIB.api.clickEvents.push({bounds: bounds, __callback: __callback});
+JLIB.api.addClickEvent = (bounds, __callback) => {JLIB.api.clickEvents.push({bounds: bounds, __callback: __callback}); return JLIB.api.clickEvents.length - 1;};
 JLIB.api.addResizeEvent = (__callback) => JLIB.api.resizeEvents.push({__callback: __callback});
 JLIB.api.addWheelEvent = (__callback) => JLIB.api.wheelEvents.push({__callback: __callback});
 

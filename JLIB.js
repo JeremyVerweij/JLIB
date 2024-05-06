@@ -25,5 +25,6 @@ JLIB.extensions = {};
 JLIB.config = document.getElementsByTagName("jlib-config")[0];
 JLIB.sourceFolder = JLIB.config.getElementsByTagName("jlib-src")[0].innerHTML + "/";
 JLIB.extensionEnabled = (JLIB.config.getElementsByTagName("jlib-allow-extensions")[0].innerHTML) === "true";
+JLIB.scripts_element = document.getElementsByTagName("jlib-scripts")[0];
 
-document.head.appendChild((() => {var JLIB_SOURCE_LOADER_tmp = document.createElement('script'); JLIB_SOURCE_LOADER_tmp.src = JLIB.sourceFolder + "common/addScript.js"; return JLIB_SOURCE_LOADER_tmp;})());
+JLIB.scripts_element.appendChild((() => {var JLIB_SOURCE_LOADER_tmp = document.createElement('script'); JLIB_SOURCE_LOADER_tmp.src = JLIB.sourceFolder + "common/addScript.js"; return JLIB_SOURCE_LOADER_tmp;})());
