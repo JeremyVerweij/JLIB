@@ -1,6 +1,7 @@
 {
     "name": "JLIB",
     "html": true,
+    "node": false,
     "versions": [
         "v1.00"
     ]
