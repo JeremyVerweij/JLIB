@@ -40,7 +40,7 @@
             return;
         }
 
-        JLIB.common.addScript(JLIB_TEMP_ELEMENT.src + "/_init");
+        JLIB.common.addScript(JLIB_TEMP_ELEMENT.src + "/init");
     }
 })()
 
