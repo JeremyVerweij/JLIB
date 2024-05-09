@@ -6,12 +6,13 @@ JLIB_LOADER.JLIB_LOADED = [];
 JLIB_LOADER.JLIB_LOADED_WAIT = [];
 JLIB_LOADER.JLIB_LOADED_WAIT_LIST = [];
 JLIB_LOADER.JLIB_SRC_LOAD_INDEX = 0;
+JLIB_LOADER.EXTENSION_LAST_ELEMENT = {};
 
 JLIB_LOADER.JLIB_SRC_LIST = [
     {src: "common/addScript", requirements: [], enabled: () => true},
+    {src: "common/extensions", requirements: [], enabled: () => JLIB["extensionEnabled"]},
     {src: "api/log", requirements: [], enabled: () => true},
     {src: "common/addCss", requirements: [], enabled: () => true},
-    {src: "common/extensions", requirements: [], enabled: () => JLIB["extensionEnabled"]},
     {src: "common/http", requirements: [], enabled: () => true},
     {src: "common/commonMath", requirements: [], enabled: () => true},
     {src: "common/boundsCheck", requirements: ["common/commonMath"], enabled: () => true},

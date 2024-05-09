@@ -29,7 +29,7 @@
 
         }
 
-        JLIB_EXTENSIONS[JLIB_TEMP_NAME] = {name: JLIB_TEMP_NAME, src: JLIB_TEMP_SRC, requirements: JLIB_TEMP_REQUIREMENTS, config_element: JLIB_ELEMENT};
+        JLIB_EXTENSIONS[JLIB_TEMP_NAME] = {name: JLIB_TEMP_NAME, src: JLIB_TEMP_SRC, requirements: JLIB_TEMP_REQUIREMENTS, config_element: JLIB_ELEMENT, loaded: false};
     }
 
     for (const JLIB_TEMP_KEY in JLIB_EXTENSIONS) {
@@ -44,6 +44,7 @@
     }
 })()
 
+
 JLIB_LOADER.LOAD_EXTENSION_SRC_LIST = function(srcList, extension){
     var JLIB_SRC_TEMP = JLIB_EXTENSIONS[extension].src;
 
@@ -51,12 +52,19 @@ JLIB_LOADER.LOAD_EXTENSION_SRC_LIST = function(srcList, extension){
         var JLIB_ELEMENT_TEMP = srcList[JLIB_INDEX_TEMP].src;
         JLIB_ELEMENT_TEMP = JLIB_SRC_TEMP + "/" + JLIB_ELEMENT_TEMP;
         srcList[JLIB_INDEX_TEMP].src = JLIB_ELEMENT_TEMP;
+        var JLIB_ELEMENT_TEMP2 = () => srcList[JLIB_INDEX_TEMP].enabled() && true;
 
         for (let JLIB_INDEX_2 = 0; JLIB_INDEX_2 < srcList[JLIB_INDEX_TEMP].requirements.length; JLIB_INDEX_2++) {
             var JLIB_ELEMENT_TEMP_2 = srcList[JLIB_INDEX_TEMP].requirements[JLIB_INDEX_2];
             JLIB_ELEMENT_TEMP_2 = JLIB_SRC_TEMP + "/" + JLIB_ELEMENT_TEMP_2;
             srcList[JLIB_INDEX_TEMP].requirements[JLIB_INDEX_2] = JLIB_ELEMENT_TEMP_2;
         }
+
+        if(JLIB_INDEX_TEMP == srcList.length - 1){
+            JLIB_LOADER.EXTENSION_LAST_ELEMENT[srcList[JLIB_INDEX_TEMP].src] = extension;
+        }
+
+        srcList[JLIB_INDEX_TEMP].EXTENSION = extension;
 
         JLIB_LOADER.JLIB_SRC_LIST.push(srcList[JLIB_INDEX_TEMP]);
     }
